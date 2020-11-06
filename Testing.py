@@ -45,25 +45,51 @@ class CustomerTest(unittest.TestCase):
 
     def tear_down(self):
         pass
-    
+
     def test_make_reservation(self):
         res = self.Customer.make_reservation(restaurant, 15, 7)
         self.assertEqual(res.customer, "Brian")
         self.assertEqual(res.time, 15)
         self.assertEqual(res.party_size, 7)
 
-class RestaurantsInAreaTest(unittest.TestCase):
-    def set_up(self):
-        self.RestaurantsInArea = RestaurantsInArea()
-        #self.RestaurantsInArea.add_restaurant()
-
-    def tear_down(self):
-
-    def test_(self):
-        assert RestaurantsInArea.
 class ReservationTest(unittest.TestCase):
     def set_up(self):
+        customer = Customer("Sally", "(520)555-7777")
+        time = 16
+        party_size = 3
+
+        self.Reservation = Reservation(customer, time, party_size)
 
     def tear_down(self):
+        pass
+
+    #def test_cancel_reservation(self):
+
+
+
+class RestaurantsInAreaTest(unittest.TestCase):
+    def set_up(self):
+        self.restaurant1 = Restaurant("Friendly's", "American", 20, 10, 20)
+        self.restaurant2 = Restaurant("Denny's", "Diner", 15, 7, 1)
+        self.restaurant3 = Restaurant("Sabai Sabai", "Thai", 203, 11, 22)
+
+        self.RestaurantsInArea = RestaurantsInArea([self.restaurant1, self.restaurant2])
+
+    def tear_down(self):
+
+    def test_get_restaurants(self):
+        assert self.RestaurantsInArea.get_restaurants() == [self.restaurant1, self.restaurant2], "get_restaurants test failed"
+
+    def test_add_restaurant(self):
+        self.RestaurantsInArea.add_restaurant(self.restaurant3)
+        assert RestaurantsInArea.get_restaurants()[2] == self.restaurant3, "add_restaurant test failed"
+
+    def test_find_restaurant_name(self):
+
+    def test_find_restaurant_genre(self):
+
+    def test_has_seats(self):
+
+    def test_make_reservation(self):
 
 
