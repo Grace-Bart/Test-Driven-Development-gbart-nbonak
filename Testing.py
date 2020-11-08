@@ -16,55 +16,59 @@ class RestaurantTest(unittest.TestCase):
 
         customer = Customer("George", "(802)555-5555")
 
-        res1 = Reservation(customer, 12, 2)
-        res2 = Reservation(customer, 12, 12)
+        self.res1 = Reservation(customer, 12, 2)
+        self.res2 = Reservation(customer, 12, 12)
+        self.res3 = Reservation(customer, 12, 3)
 
     def tear_down(self):
         pass
 
-    def test_seat_reservation_A(self):
-        self.Restaurant.seat_reservation(res1)
+    def test_take_reservation_A(self):
+        self.Restaurant.take_reservation(self.res1)
         self.assertEqual(self.Restaurant.seats_available, 3)
 
-    def test_seat_reservation_B(self):
-        self.Restaurant.seat_reservation(res2)
+    def test_take_reservation_B(self):
+        self.Restaurant.take_reservation(self.res2)
+        self.assertEqual(self.Restaurant.seats_available, 3)
+
+    def test_take_reservationC(self):
+        self.Restaurant.take_reservation(self.res3)
         self.assertEqual(self.Restaurant.seats_available, 0)
+
+    def test_has_seatsA(self):
+        self.Restaurant.reset()
+        self.assertEqual(self.Restaurant.has_seats(self, 3), True)
+
+    def test_has_seatsB(self):
+        self.Restaurant.reset()
+        self.assertEqual(self.Restaurant.has_seats(self, 50), False)
+
+    def test_has_seatsC(self):
+        self.Restaurant.reset()
+        self.assertEqual(self.Restaurant.has_seats(self, 5), True)
 
     def test_reset(self):
         self.Restaurant.reset()
         self.assertEqual(self.Restaurant.seats_available, self.Restaurant.MAX_SEATS)
+
 
 class CustomerTest(unittest.TestCase):
     def set_up(self):
         name = "Brian"
         phone_number = "(802)555-1234"
 
-        self.Customer = Customer(name, phone_number)
+        self.customer = Customer(name, phone_number)
 
-        restaurant = Restaurant("Tapas", "mexican", 7, 11, 17)
+        self.restaurant = Restaurant("Tapas", "mexican", 7, 11, 17)
 
     def tear_down(self):
         pass
 
     def test_make_reservation(self):
-        res = self.Customer.make_reservation(restaurant, 15, 7)
-        self.assertEqual(res.customer, "Brian")
-        self.assertEqual(res.time, 15)
-        self.assertEqual(res.party_size, 7)
-
-class ReservationTest(unittest.TestCase):
-    def set_up(self):
-        customer = Customer("Sally", "(520)555-7777")
-        time = 16
-        party_size = 3
-
-        self.Reservation = Reservation(customer, time, party_size)
-
-    def tear_down(self):
-        pass
-
-    #def test_cancel_reservation(self):
-
+        self.res = self.customer.make_reservation(self.restaurant, 15, 7)
+        self.assertEqual(self.res.customer, "Brian")
+        self.assertEqual(self.res.time, 15)
+        self.assertEqual(self.res.party_size, 7)
 
 
 class RestaurantsInAreaTest(unittest.TestCase):
@@ -76,20 +80,23 @@ class RestaurantsInAreaTest(unittest.TestCase):
         self.RestaurantsInArea = RestaurantsInArea([self.restaurant1, self.restaurant2])
 
     def tear_down(self):
+        pass
 
     def test_get_restaurants(self):
         assert self.RestaurantsInArea.get_restaurants() == [self.restaurant1, self.restaurant2], "get_restaurants test failed"
 
-    def test_add_restaurant(self):
+    def test_add_restaurantA(self):
         self.RestaurantsInArea.add_restaurant(self.restaurant3)
         assert RestaurantsInArea.get_restaurants()[2] == self.restaurant3, "add_restaurant test failed"
 
+    def test_add_restaurantB(self):
+        assert self.RestaurantsInArea.get_restaurants() == [self.restaurant1,
+                                                            self.restaurant2, self.restaurant3], "get_restaurants test failed"
+
     def test_find_restaurant_name(self):
+        pass
 
     def test_find_restaurant_genre(self):
-
-    def test_has_seats(self):
-
-    def test_make_reservation(self):
+        pass
 
 
