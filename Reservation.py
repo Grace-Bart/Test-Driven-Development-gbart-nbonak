@@ -3,5 +3,3 @@ class Reservation:
         self.customer = customer
         self.time = time
         self.party_size = party_size
-    def cancel_reservation(self):
-        pass

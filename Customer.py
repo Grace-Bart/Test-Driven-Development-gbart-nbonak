@@ -8,5 +8,5 @@ class Customer:
 
     def make_reservation(self, restaurant, time, party_size):
         res = Reservation(self, time, party_size)
-        restaurant.take_reservation(self, res)
+        restaurant.take_reservation(res)
         return res
